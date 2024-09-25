@@ -1,9 +1,9 @@
 services:
   - type: web
-    name: my-playwright-app
+    name: crawl-backend
     env: node
     plan: free
-    buildCommand: 'npm install'
+    buildCommand: 'npm install && npx playwright install'
     startCommand: 'node index.js'
     healthCheckPath: /
     autoDeploy: true
