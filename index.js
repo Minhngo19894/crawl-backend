@@ -19,7 +19,10 @@ app.post('/api/crawl', async (req, res) => {
     }
 
     try {
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch({
+            executablePath: './chrome/chrome', // Thay đường dẫn này cho phù hợp
+            headless: false
+        });
         const page = await browser.newPage();
 
         // Truy cập vào URL và chờ tải xong
