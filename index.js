@@ -23,7 +23,7 @@ app.post('/api/crawl', async (req, res) => {
         const page = await browser.newPage();
 
         // Truy cập vào URL và chờ tải xong
-        await page.goto(url, { waitUntil: 'networkidle2' });
+        await page.goto(url);
 
         // Lấy văn bản từ div có class là list-group-item list-group-item-info
         const textContent = await page.evaluate(() => {

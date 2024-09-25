@@ -1,9 +1,0 @@
-services:
-  - type: web
-    name: crawl-backend
-    env: node
-    plan: free
-    buildCommand: 'npm install && npx playwright install'
-    startCommand: 'node index.js'
-    healthCheckPath: /
-    autoDeploy: true
