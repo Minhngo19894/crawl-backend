@@ -4,7 +4,7 @@ const express = require('express');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const cors = require('cors');
-const puppeteer = require('puppeteer');
+const { chromium } = require('playwright');
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -19,19 +19,15 @@ app.post('/api/crawl', async (req, res) => {
     }
 
     try {
-        const browser = await puppeteer.launch();
+        const browser = await chromium.launch();
         const page = await browser.newPage();
+        await page.goto(url, { waitUntil: 'networkidle' });
 
-        // Truy cập vào URL và chờ tải xong
-        await page.goto(url, { waitUntil: 'networkidle2' });
-
-        // Lấy văn bản từ div có class là list-group-item list-group-item-info
         const textContent = await page.evaluate(() => {
             const elements = document.querySelectorAll('.list-group-item.list-group-item-info');
             return Array.from(elements).map(element => element.innerText);
         });
 
-        // Đóng trình duyệt
         await browser.close();
 
         // Trả về nội dung văn bản
