@@ -10,7 +10,13 @@ const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
-
+async function installBrowsers() {
+    try {
+        await chromium.install();
+    } catch (error) {
+        console.error('Error installing browsers:', error);
+    }
+}
 // API để crawl dữ liệu
 app.post('/api/crawl', async (req, res) => {
     const { url } = req.body;
@@ -42,6 +48,10 @@ app.post('/api/crawl', async (req, res) => {
 });
 
 // Khởi động server
-app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
+installBrowsers().then(() => {
+    app.listen(port, () => {
+        console.log(`Server is running at http://localhost:${port}`);
+    });
+}).catch((error) => {
+    console.error('Error starting the server:', error);
 });
