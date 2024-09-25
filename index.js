@@ -34,7 +34,7 @@ app.post('/api/crawl', async (req, res) => {
         res.send({ text: textContent });
     } catch (error) {
         console.error(error);
-        res.status(500).send({ error: 'Error crawling the URL' });
+        res.status(500).send({ error: error });
     }
 });
 

@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: my-playwright-app
+    env: node
+    plan: free
+    buildCommand: 'npm install'
+    startCommand: 'node index.js'
+    healthCheckPath: /
+    autoDeploy: true
