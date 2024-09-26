@@ -28,7 +28,7 @@ app.post('/api/crawl', async (req, res) => {
         // Lấy văn bản từ div có class là list-group-item list-group-item-info
         const textContent = await page.evaluate(() => {
             const elements = document.querySelectorAll('.list-group-item.list-group-item-info');
-            return Array.from(elements).map(element => element.innerText);
+            return { url, content: Array.from(elements).map(element => element.innerText) };
         });
 
         // Đóng trình duyệt
